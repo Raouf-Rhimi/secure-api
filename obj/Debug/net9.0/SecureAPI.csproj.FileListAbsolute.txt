@@ -41,3 +41,4 @@ C:\Users\raouf\Desktop\formation\SecureAPI\obj\Debug\net9.0\refint\SecureAPI.dll
 C:\Users\raouf\Desktop\formation\SecureAPI\obj\Debug\net9.0\SecureAPI.pdb
 C:\Users\raouf\Desktop\formation\SecureAPI\obj\Debug\net9.0\SecureAPI.genruntimeconfig.cache
 C:\Users\raouf\Desktop\formation\SecureAPI\obj\Debug\net9.0\ref\SecureAPI.dll
+C:\Users\raouf\Desktop\formation\SecureAPI\obj\Debug\net9.0\SecureAPI.sourcelink.json

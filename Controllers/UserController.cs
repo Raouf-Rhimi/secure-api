@@ -6,6 +6,7 @@ namespace SecureApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class UserController : ControllerBase
 {
     [HttpGet("profile")]
@@ -25,6 +26,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("roles")]
+    [AllowAnonymous]
     public IActionResult GetRoles()
     {
         var roles = User.FindAll(ClaimTypes.Role).Select(c => c.Value);

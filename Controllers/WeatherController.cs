@@ -5,6 +5,7 @@ namespace SecureApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class WeatherController : ControllerBase
 {
     private static readonly string[] Summaries = new[]
@@ -19,6 +20,7 @@ public class WeatherController : ControllerBase
     }
 
     [HttpGet("user-data")]
+    [Authorize(Policy = "RequireUserRole")]
     public IActionResult GetUserWeather()
     {
         var userClaims = User.Claims.Select(c => new { c.Type, c.Value }).ToList();
@@ -38,6 +40,7 @@ public class WeatherController : ControllerBase
     }
 
     [HttpGet("manager-data")]
+    [Authorize(Policy = "RequireManagerRole")]
     public IActionResult GetManagerWeather()
     {
         var userClaims = User.Claims.Select(c => new { c.Type, c.Value }).ToList();
@@ -50,6 +53,7 @@ public class WeatherController : ControllerBase
     }
 
     [HttpGet("admin-data")]
+    [Authorize(Policy = "RequireAdminRole")]
     public IActionResult GetAdminWeather()
     {
         var userClaims = User.Claims.Select(c => new { c.Type, c.Value }).ToList();
@@ -61,26 +65,24 @@ public class WeatherController : ControllerBase
         });
     }
 
-    [HttpGet("group-data")]
-    public IActionResult GetGroupWeather()
+    [HttpGet("administrators-group")]
+    [Authorize(Policy = "RequireAdministratorsGroup")]
+    public IActionResult GetAdministratorsGroupWeather()
     {
         return Ok(new { 
-            Message = "Access granted via group membership", 
+            Message = "Access granted to Administrators group members only", 
             Data = "Group-specific resources" 
         });
     }
 
-    [HttpGet("user-info")]
-    public IActionResult GetUserInfo()
+    [HttpGet("managers-group")]
+    [Authorize(Policy = "RequireManagersGroup")]
+    public IActionResult GetManagersGroupWeather()
     {
-        var userInfo = new
-        {
-            Username = User.Identity?.Name,
-            IsAuthenticated = User.Identity?.IsAuthenticated,
-            Claims = User.Claims.Select(c => new { c.Type, c.Value }).ToList()
-        };
-
-        return Ok(userInfo);
+        return Ok(new { 
+            Message = "Access granted to managers group members only", 
+            Data = "Group-specific resources" 
+        });
     }
 }
 
